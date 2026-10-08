@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OPIR — Optimización de Procesos</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f4f7fb;color:#172033}
+header{background:linear-gradient(135deg,#0b1f3a,#1261a0);color:white;padding:22px 7%;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.logo{font-size:28px;font-weight:800}.logo span{color:#59d6ff}
+nav a{color:white;text-decoration:none;margin-left:22px;font-weight:600}
+.hero{padding:75px 7%;background:white;display:grid;grid-template-columns:1.3fr .7fr;gap:40px;align-items:center}
+.hero h1{font-size:48px;margin-bottom:18px;color:#0b1f3a}.hero h1 span{color:#1261a0}
+.hero p{font-size:19px;line-height:1.6;color:#526071;max-width:680px}
+.btn{display:inline-block;margin-top:28px;background:#1261a0;color:white;padding:14px 24px;border-radius:10px;text-decoration:none;font-weight:bold}
+.card{background:#eaf5ff;border-radius:22px;padding:35px;text-align:center;box-shadow:0 15px 35px #0b1f3a18}
+.card .icon{font-size:65px}.card h2{margin:15px 0 8px;color:#0b1f3a}
+section{padding:60px 7%}.title{text-align:center;font-size:32px;margin-bottom:35px;color:#0b1f3a}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.box{background:white;padding:27px;border-radius:15px;box-shadow:0 8px 25px #17203312}
+.box h3{color:#1261a0;margin-bottom:12px}.box p{line-height:1.55;color:#5a6677}
+.opir{background:#0b1f3a;color:white}.opir .title{color:white}
+.form{max-width:700px;margin:auto;background:white;padding:30px;border-radius:16px;color:#172033}
+label{display:block;font-weight:bold;margin:15px 0 7px}
+input,textarea,select{width:100%;padding:12px;border:1px solid #ccd5e0;border-radius:8px;font-size:15px}
+button{border:0;background:#1261a0;color:white;padding:13px 22px;border-radius:9px;font-weight:bold;margin-top:18px;cursor:pointer}
+#resultado{margin-top:20px;padding:15px;border-radius:9px;background:#eaf5ff;display:none}
+footer{text-align:center;background:#07172b;color:#b9c7d8;padding:25px}
+@media(max-width:800px){.hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr}nav{display:none}.hero h1{font-size:37px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">OPIR</div>
+  <nav>
+    <a href="#inicio">Inicio</a>
+    <a href="#servicios">Servicios</a>
+    <a href="#opir">OPIR</a>
+    <a href="#contacto">Contacto</a>
+  </nav>
+</header>
+
+<main>
+<section class="hero" id="inicio">
+  <div>
+    <h1>Optimiza procesos.<br><span>Impulsa resultados.</span></h1>
+    <p>OPIR es una herramienta de diagnóstico enfocada en identificar oportunidades de mejora, analizar procesos y plantear soluciones prácticas para aumentar la eficiencia de las organizaciones.</p>
+    <a class="btn" href="#opir">Probar OPIR</a>
+  </div>
+  <div class="card">
+    <div class="icon">⚙️</div>
+    <h2>OPIR</h2>
+    <p>Optimización de Procesos e Indicadores de Resultados.</p>
+  </div>
+</section>
+
+<section id="servicios">
+  <h2 class="title">¿Qué ofrece OPIR?</h2>
+  <div class="grid">
+    <div class="box"><h3>🔎 Diagnóstico</h3><p>Identificamos problemas, desperdicios, retrasos y oportunidades de mejora dentro del proceso.</p></div>
+    <div class="box"><h3>⚙️ Optimización</h3><p>Proponemos mejoras orientadas a reducir tiempos, costos y recursos innecesarios.</p></div>
+    <div class="box"><h3>📊 Indicadores</h3><p>Utilizamos indicadores para evaluar el desempeño y facilitar la toma de decisiones.</p></div>
+  </div>
+</section>
+
+<section class="opir" id="opir">
+  <h2 class="title">OPIR — Diagnóstico personalizado de procesos</h2>
+  <div class="form">
+    <p style="line-height:1.6;color:#526071;margin-bottom:18px">
+      Cuéntanos cómo funciona actualmente tu negocio. Mientras más precisos sean los datos,
+      más específica será la recomendación de OPIR.
+    </p>
+
+    <label for="negocio">1. ¿Qué tipo de negocio tienes?</label>
+    <input id="negocio" placeholder="Ej. Panadería, pulpería, taller, restaurante">
+
+    <label for="producto">2. ¿Qué producto o servicio quieres mejorar?</label>
+    <input id="producto" placeholder="Ej. Elaboración de pan dulce, reparación de motos">
+
+    <label for="etapa">3. ¿En qué etapa está el principal problema?</label>
+    <select id="etapa">
+      <option value="">Selecciona una opción</option>
+      <option>Compra y recepción de materiales</option>
+      <option>Almacenamiento e inventario</option>
+      <option>Producción o preparación</option>
+      <option>Atención y ventas</option>
+      <option>Entrega o despacho</option>
+      <option>Administración y control</option>
+    </select>
+
+    <label for="frecuencia">4. ¿Cuántas veces realizas este proceso?</label>
+    <input id="frecuencia" type="number" min="1" placeholder="Ej. 20 veces al día">
+
+    <label for="unidad">Unidad de frecuencia</label>
+    <select id="unidad">
+      <option>por día</option><option>por semana</option><option>por mes</option>
+    </select>
+
+    <label for="personas">5. ¿Cuántas personas participan directamente?</label>
+    <input id="personas" type="number" min="1" placeholder="Ej. 3">
+
+    <label for="tiempo">6. ¿Cuánto tiempo tarda actualmente una operación completa?</label>
+    <input id="tiempo" type="number" min="0" step="0.1" placeholder="Ej. 45">
+
+    <label for="unidadTiempo">Unidad del tiempo</label>
+    <select id="unidadTiempo">
+      <option>minutos</option><option>horas</option>
+    </select>
+
+    <label for="produccion">7. ¿Cuántas unidades produces o atiendes en ese período?</label>
+    <input id="produccion" type="number" min="1" placeholder="Ej. 50 unidades">
+
+    <label for="costo">8. ¿Cuánto te cuesta aproximadamente realizar una operación?</label>
+    <input id="costo" type="number" min="0" step="0.01" placeholder="Ej. 25">
+
+    <label for="moneda">Moneda</label>
+    <select id="moneda"><option>C$</option><option>US$</option></select>
+
+    <label for="problema">9. ¿Cuál es el problema principal que quieres solucionar?</label>
+    <select id="problema">
+      <option value="">Selecciona una opción</option>
+      <option>El proceso tarda demasiado</option>
+      <option>Se desperdicia material o producto</option>
+      <option>Hay demasiados errores o productos defectuosos</option>
+      <option>Los clientes tienen que esperar demasiado</option>
+      <option>Hay desorden o falta de organización</option>
+      <option>El inventario se agota o se acumula demasiado</option>
+      <option>Los costos son demasiado altos</option>
+      <option>La producción es baja</option>
+      <option>No tengo indicadores para saber si el negocio mejora</option>
+    </select>
+
+    <label for="detalle">10. Describe el problema con tus propias palabras</label>
+    <textarea id="detalle" rows="4" placeholder="Ej. En las horas de mayor demanda se acumulan pedidos porque una sola persona prepara, cobra y entrega."></textarea>
+
+    <label for="meta">11. ¿Qué resultado te gustaría conseguir?</label>
+    <select id="meta">
+      <option value="">Selecciona una opción</option>
+      <option>Reducir el tiempo del proceso</option>
+      <option>Reducir costos</option>
+      <option>Reducir desperdicios</option>
+      <option>Aumentar la producción</option>
+      <option>Mejorar la calidad</option>
+      <option>Atender más clientes</option>
+      <option>Organizar mejor el trabajo</option>
+    </select>
+
+    <button onclick="analizar()">Generar diagnóstico personalizado</button>
+    <div id="resultado"></div>
+  </div>
+</section>
+
+<section id="contacto">
+  <h2 class="title">OPIR</h2>
+  <div class="box" style="max-width:700px;margin:auto;text-align:center">
+    <h3>Una solución pensada desde la Ingeniería Industrial</h3>
+    <p>Analizar, mejorar y medir: tres pasos para convertir los problemas de un proceso en oportunidades de crecimiento.</p>
+  </div>
+</section>
+</main>
+
+<footer>© 2026 OPIR | “Optimizamos procesos, impulsamos resultados.”</footer>
+
+<script>
+function analizar(){
+  const negocio=v("negocio"), producto=v("producto"), etapa=v("etapa");
+  const frecuencia=num("frecuencia"), unidad=v("unidad"), personas=num("personas");
+  const tiempo=num("tiempo"), unidadTiempo=v("unidadTiempo"), produccion=num("produccion");
+  const costo=num("costo"), moneda=v("moneda"), problema=v("problema");
+  const detalle=v("detalle"), meta=v("meta");
+  const r=document.getElementById("resultado");
+
+  if(!negocio||!producto||!etapa||!frecuencia||!personas||!tiempo||!produccion||
+     costo<0||!problema||!detalle||!meta){
+    r.style.display="block";
+    r.innerHTML="⚠️ <strong>Faltan datos.</strong><br>Completa todos los campos para que OPIR pueda construir un diagnóstico personalizado.";
+    return;
+  }
+
+  const n=negocio.toLowerCase(), p=producto.toLowerCase();
+  const tiempoMin=unidadTiempo==="horas"?tiempo*60:tiempo;
+  const costoUnit=costo/produccion;
+  const capacidadHora=tiempoMin>0?produccion/(tiempoMin/60):0;
+
+  let perfil="", causas=[], soluciones=[], indicadores=[], prioridad="MEDIA";
+
+  const add=(titulo,que,por,como,beneficio,dificultad,metricas,prioridadLocal="ALTA")=>{
+    soluciones.push({titulo,que,por,como,beneficio,dificultad,metricas});
+    if(prioridadLocal==="ALTA") prioridad="ALTA";
+  };
+
+  // Business-specific context
+  if(/panader|repost|pastel|pan\b/.test(n)){
+    perfil="OPIR está tratando el caso como un proceso de producción alimentaria, donde el rendimiento de materias primas, la preparación, los tiempos de horneado, la merma y la demanda diaria son variables críticas.";
+    causas=["Variación en cantidades o recetas","Tiempos de preparación y horneado","Desperdicio de materia prima","Distribución del trabajo en horas de demanda"];
+  } else if(/restaurante|comida|cafeter|bar\b|comedor/.test(n)){
+    perfil="OPIR está tratando el caso como un proceso de servicio de alimentos, donde el flujo pedido → preparación → entrega → cobro y la demanda en horas pico son determinantes.";
+    causas=["Acumulación de pedidos","Preparación no estandarizada","Cruce de funciones","Falta de preparación previa en horas pico"];
+  } else if(/taller|mecán|repar|auto|moto/.test(n)){
+    perfil="OPIR está tratando el caso como un servicio técnico, donde diagnóstico, disponibilidad de repuestos, herramientas, mano de obra y tiempo por orden determinan la capacidad.";
+    causas=["Espera por diagnóstico o repuestos","Herramientas no disponibles","Trabajos sin secuencia estándar","Distribución desigual de órdenes"];
+  } else if(/pulper|tienda|abarrot|mini.?super|comercio|venta/.test(n)){
+    perfil="OPIR está tratando el caso como una operación comercial, donde rotación, inventario, reposición, exhibición y atención al cliente son variables clave.";
+    causas=["Reposición reactiva","Productos de baja rotación","Falta de niveles mínimo/máximo","Tiempo de búsqueda o atención"];
+  } else if(/ropa|costura|confe|boutique|zapato|calzado/.test(n)){
+    perfil="OPIR está tratando el caso como un emprendimiento de confección o comercialización, donde materiales, tallas, modelos, tiempos de elaboración y rotación influyen directamente.";
+    causas=["Planificación de materiales","Variación de tiempos","Inventario por tallas/modelos","Retrabajos o defectos"];
+  } else if(/salon|barber|belleza|estética|peluquer/.test(n)){
+    perfil="OPIR está tratando el caso como un servicio basado en citas y atención directa, donde capacidad por trabajador, duración del servicio, espera y agenda son fundamentales.";
+    causas=["Duración variable de servicios","Agenda sin capacidad disponible","Tiempos muertos entre clientes","Concentración de demanda"];
+  } else {
+    perfil="OPIR está analizando el emprendimiento como un sistema de trabajo completo, relacionando personas, tiempo, recursos, costos, capacidad y resultado para evitar recomendaciones genéricas.";
+    causas=["Flujo de trabajo","Uso de recursos","Distribución de responsabilidades","Control del desempeño"];
+  }
+
+  // Problem-specific customized solutions
+  if(problema==="El proceso tarda demasiado"){
+    add("Mapear y dividir el proceso",
+      `Separar ${producto} en actividades medibles y registrar cuánto tarda cada una.`,
+      "El tiempo total informado permite sospechar que una o más actividades están absorbiendo capacidad.",
+      "Durante 3–5 días mide inicio y final de cada actividad; ordena las actividades desde la más lenta hasta la más rápida y ataca primero la que más limita el flujo.",
+      "Identificar el verdadero cuello de botella antes de gastar dinero.",
+      "Baja","Tiempo por etapa y tiempo total");
+    add("Redistribuir el trabajo",
+      `Revisar cómo participan las ${personas} personas y asignar tareas según carga real.`,
+      "La capacidad puede estar limitada por una persona sobrecargada mientras otra tiene tiempos disponibles.",
+      "Registra qué hace cada trabajador en una operación y busca equilibrar las tareas sin duplicarlas.",
+      "Menos espera y mejor utilización del personal.",
+      "Baja","Carga de trabajo por persona");
+    add("Estandarizar el método",
+      "Crear una secuencia sencilla y repetible para realizar el proceso.",
+      "La variación en la forma de trabajar suele generar tiempos diferentes entre operaciones.",
+      "Documenta los pasos, herramientas y orden correcto; después mide nuevamente.",
+      "Mayor estabilidad y menor variación.",
+      "Media","Tiempo promedio y variación");
+    add("Atacar el cuello de botella",
+      "Concentrar la primera inversión o mejora en la actividad que realmente limita la producción.",
+      "Aumentar recursos en una etapa que no limita el flujo puede no generar ninguna mejora real.",
+      "Compara tiempos por etapa y prueba una mejora pequeña antes de comprar equipo o contratar personal.",
+      "Más capacidad con el recurso adecuado.",
+      "Media","Unidades por hora y tiempo de ciclo");
+  } else if(problema==="Se desperdicia material o producto"){
+    add("Medir la merma por operación",
+      `Registrar cuánto material entra y cuánto producto útil sale en ${producto}.`,
+      "La frecuencia indicada de ${frecuencia} ${unidad} puede convertir pequeñas pérdidas en un costo acumulado importante.",
+      "Pesa o cuenta entradas, salidas y desperdicio durante varios días.",
+      "Conocer cuánto dinero se está perdiendo realmente.",
+      "Baja","% de merma y costo de merma");
+    add("Establecer consumo estándar",
+      "Definir una cantidad objetivo de material por unidad producida.",
+      "Sin un estándar es difícil saber cuándo el consumo se está desviando.",
+      "Calcula consumo promedio actual y establece un rango aceptable.",
+      "Reducir sobreconsumo sin afectar la calidad.",
+      "Media","Consumo real vs. estándar");
+    add("Clasificar las causas de desperdicio",
+      "Separar las pérdidas por error humano, almacenamiento, deterioro, preparación o producto defectuoso.",
+      "No todas las mermas se solucionan de la misma manera.",
+      "Registra cada pérdida con una causa y ataca primero la causa más frecuente o costosa.",
+      "Soluciones dirigidas al origen del problema.",
+      "Baja","Merma por causa");
+  } else if(problema==="Hay demasiados errores o productos defectuosos"){
+    add("Registro de defectos",
+      "Crear un registro sencillo de qué error ocurre, cuándo y cuántas veces.",
+      "La descripción del usuario necesita convertirse en datos para identificar patrones.",
+      "Clasifica los defectos por tipo y etapa del proceso.",
+      "Encontrar el defecto dominante.",
+      "Baja","% de defectos por tipo");
+    add("Buscar causa raíz",
+      "Aplicar 5 Porqués o Ishikawa al defecto más frecuente.",
+      "Corregir solamente el síntoma puede hacer que el problema vuelva a aparecer.",
+      "Pregunta por qué ocurre el defecto hasta llegar a una causa controlable.",
+      "Reducir recurrencia de errores.",
+      "Media","Defectos repetidos y retrabajo");
+    add("Punto de control",
+      "Crear una revisión justo antes de que el producto pase a la siguiente etapa.",
+      "Detectar el error temprano suele costar menos que corregirlo al final.",
+      "Define 3–5 criterios de aceptación y verifica cada operación crítica.",
+      "Menos retrabajo y devoluciones.",
+      "Baja","Defectos detectados antes de entrega");
+  } else if(problema==="Los clientes tienen que esperar demasiado"){
+    add("Separar espera de trabajo real",
+      "Medir cuánto espera el cliente y cuánto tarda realmente el servicio.",
+      "El tiempo total puede ocultar que la mayor pérdida está antes de comenzar el trabajo.",
+      "Cronometra llegada, inicio, finalización y entrega de varias atenciones.",
+      "Saber exactamente dónde se genera la cola.",
+      "Baja","Espera promedio");
+    add("Preparar actividades antes de la demanda",
+      "Mover actividades repetitivas a momentos previos a las horas de mayor carga.",
+      "En servicios comerciales, preparar con anticipación puede liberar capacidad cuando llegan más clientes.",
+      "Identifica las tareas que pueden hacerse sin tener al cliente esperando.",
+      "Menor tiempo de respuesta en horas pico.",
+      "Baja","Clientes atendidos por hora");
+    add("Diseñar una ruta rápida",
+      "Crear un flujo específico para pedidos o servicios sencillos.",
+      "No todos los clientes requieren el mismo nivel de trabajo.",
+      "Clasifica solicitudes simples y complejas y evita que las simples queden bloqueadas por las complejas.",
+      "Aumentar velocidad sin sacrificar servicios complejos.",
+      "Media","Tiempo por tipo de servicio");
+  } else if(problema==="Hay desorden o falta de organización"){
+    add("Ordenar por frecuencia de uso",
+      "Colocar materiales y herramientas de uso frecuente cerca del punto donde se necesitan.",
+      "Los movimientos repetidos consumen tiempo aunque individualmente parezcan pequeños.",
+      "Observa durante una jornada qué elementos se buscan más y reorganiza según frecuencia.",
+      "Menos desplazamientos y búsqueda.",
+      "Baja","Tiempo de búsqueda");
+    add("Definir ubicaciones fijas",
+      "Asignar un lugar identificado para cada material, herramienta o documento.",
+      "El orden se pierde cuando cada persona coloca los objetos en lugares diferentes.",
+      "Etiqueta zonas y establece una regla simple de devolución.",
+      "Mayor rapidez y menos pérdidas.",
+      "Baja","Incidentes de material fuera de lugar");
+    add("Lista de verificación",
+      "Crear una lista diaria de apertura, operación y cierre adaptada al negocio.",
+      "Permite mantener la mejora aunque cambie la persona que realiza la tarea.",
+      "Limita la lista a actividades críticas y asigna responsables.",
+      "Mayor consistencia operativa.",
+      "Baja","% de checklist cumplido");
+  } else if(problema==="El inventario se agota o se acumula demasiado"){
+    add("Clasificar productos por movimiento",
+      "Separar artículos de alta, media y baja rotación.",
+      "No todos los productos necesitan la misma frecuencia de revisión.",
+      "Usa las ventas recientes para clasificar y priorizar el control.",
+      "Menos dinero inmovilizado y menos quiebres.",
+      "Baja","Rotación por producto");
+    add("Definir mínimos y máximos",
+      "Establecer cuándo comprar y hasta qué cantidad reponer.",
+      "Comprar solo cuando el producto se agota genera interrupciones.",
+      "Usa consumo promedio y tiempo de reposición para establecer niveles.",
+      "Reposición más predecible.",
+      "Media","Quiebres de stock y exceso");
+    add("Revisión de productos lentos",
+      "Identificar artículos que permanecen mucho tiempo sin vender.",
+      "El inventario acumulado puede esconder capital inmovilizado.",
+      "Revisa antigüedad y movimiento y decide promociones, compras menores o sustitución.",
+      "Liberar capital y espacio.",
+      "Media","Días de inventario");
+  } else if(problema==="Los costos son demasiado altos"){
+    add("Descomponer el costo",
+      "Separar materiales, mano de obra, energía, transporte, desperdicio y otros costos.",
+      "El costo informado de "+moneda+" "+costo.toFixed(2)+" por operación debe convertirse en componentes para encontrar el origen.",
+      "Registra cada componente durante un período representativo y ordénalos de mayor a menor.",
+      "Evitar recortes que afecten áreas que no generan el problema.",
+      "Media","Costo por unidad y por componente");
+    add("Reducir costos sin reducir calidad",
+      "Atacar primero desperdicio, tiempos improductivos y retrabajos antes de recortar recursos esenciales.",
+      "Los costos pueden estar elevados por ineficiencias y no necesariamente por exceso de personal o materiales.",
+      "Compara costo antes/después de cada mejora.",
+      "Ahorro sostenible.",
+      "Media","Costo por unidad y % de ahorro");
+    add("Comparar proveedores o consumos",
+      "Revisar precio, rendimiento y calidad de los principales insumos.",
+      "El proveedor más barato no siempre representa el menor costo real si genera más desperdicio.",
+      "Compara costo por unidad útil, no solo precio de compra.",
+      "Mejores decisiones de compra.",
+      "Media","Costo real por unidad útil");
+  } else if(problema==="La producción es baja"){
+    add("Encontrar el cuello de botella",
+      `Comparar la capacidad de cada etapa de ${producto}.`,
+      `La capacidad estimada es de ${capacidadHora.toFixed(1)} unidades por hora, pero una etapa más lenta puede estar limitando todo el sistema.`,
+      "Mide unidades y tiempo de cada etapa y localiza la menor capacidad.",
+      "Aumentar producción donde realmente hace falta.",
+      "Baja","Unidades/hora por etapa");
+    add("Balancear tareas",
+      `Revisar la distribución del trabajo entre las ${personas} personas.`,
+      "Una carga desigual puede dejar recursos ociosos mientras una etapa se congestiona.",
+      "Cronometra actividades y redistribuye tareas compatibles.",
+      "Mayor aprovechamiento del equipo humano.",
+      "Baja","Producción por trabajador");
+    add("Reducir tiempos de cambio",
+      "Preparar materiales, herramientas y espacio antes de iniciar cada lote.",
+      "Los cambios y preparaciones reducen el tiempo disponible para producir.",
+      "Registra cuánto dura cada preparación y elimina movimientos innecesarios.",
+      "Más tiempo productivo sin ampliar infraestructura.",
+      "Media","Tiempo de preparación");
+  } else {
+    add("Crear tablero básico de indicadores",
+      "Medir tiempo, producción, costo y calidad con una frecuencia definida.",
+      "Sin indicadores es difícil comprobar si las mejoras realmente funcionan.",
+      "Usa una hoja sencilla y registra solo los datos que influyen en las decisiones.",
+      "Convertir la operación diaria en información útil.",
+      "Baja","Cumplimiento de metas");
+    add("Establecer metas realistas",
+      "Definir una meta inicial para el indicador más importante.",
+      "Una medición sin objetivo no indica si el resultado es bueno o malo.",
+      "Usa el promedio actual como línea base y fija una mejora progresiva.",
+      "Seguimiento objetivo.",
+      "Baja","% cumplimiento de meta");
+    add("Revisión semanal",
+      "Comparar resultados y decidir una sola mejora para la siguiente semana.",
+      "Intentar cambiar muchas cosas a la vez dificulta saber qué funcionó.",
+      "Revisa indicadores, identifica la desviación mayor y asigna una acción concreta.",
+      "Mejora continua y control.",
+      "Baja","Acciones cerradas por semana");
+  }
+
+  // Cross-cutting personalized recommendation based on the goal.
+  const goalAdvice={
+    "Reducir el tiempo del proceso":"prioriza las soluciones que reduzcan espera, movimientos y actividades que no agregan valor.",
+    "Reducir costos":"prioriza las soluciones que reduzcan desperdicio, retrabajo y consumo innecesario antes de recortar recursos críticos.",
+    "Reducir desperdicios":"prioriza medición de entradas/salidas y control de las causas de pérdida.",
+    "Aumentar la producción":"prioriza el cuello de botella y el balance de cargas antes de invertir en más recursos.",
+    "Mejorar la calidad":"prioriza prevención, causa raíz y controles en los puntos críticos.",
+    "Atender más clientes":"prioriza capacidad en horas pico, reducción de espera y separación de servicios según complejidad.",
+    "Organizar mejor el trabajo":"prioriza estandarización, responsabilidades claras y control visual."
+  }[meta];
+
+  indicadores=[...new Set(soluciones.flatMap(s=>s.metricas.split(" y ")))];
+
+  const cards=soluciones.map((s,i)=>`
+    <div style="background:#f7fbff;border:1px solid #d9e8f5;border-radius:12px;padding:18px;margin-top:14px">
+      <h4 style="color:#1261a0;margin-bottom:8px">${i+1}. ${s.titulo}</h4>
+      <p><strong>Qué hacer:</strong> ${s.que}</p>
+      <p><strong>Por qué aplica a tu caso:</strong> ${s.por}</p>
+      <p><strong>Cómo aplicarlo:</strong> ${s.como}</p>
+      <p><strong>Beneficio:</strong> ${s.beneficio}</p>
+      <p><strong>Dificultad:</strong> ${s.dificultad} &nbsp; | &nbsp; <strong>Medir:</strong> ${s.metricas}</p>
+    </div>`).join("");
+
+  r.style.display="block";
+  r.innerHTML=`
+    <h3 style="color:#1261a0;margin-bottom:12px">📋 Diagnóstico personalizado OPIR</h3>
+    <p><strong>Emprendimiento:</strong> ${negocio}</p>
+    <p><strong>Producto/servicio:</strong> ${producto}</p>
+    <p><strong>Etapa analizada:</strong> ${etapa}</p>
+    <p><strong>Objetivo:</strong> ${meta}</p>
+    <p><strong>Prioridad general:</strong> ${prioridad}</p>
+    <hr style="margin:18px 0;border:0;border-top:1px solid #ccd5e0">
+    <h4>🧠 Lectura del caso</h4>
+    <p>${perfil}</p>
+    <p style="margin-top:8px"><strong>Posibles focos:</strong> ${causas.join(" · ")}</p>
+    <h4 style="margin-top:18px">💡 Soluciones exclusivas para este caso</h4>
+    ${cards}
+    <div style="margin-top:18px;padding:15px;background:#eef8ff;border-radius:10px">
+      <strong>🎯 Recomendación de prioridad:</strong> ${goalAdvice}
+    </div>
+    <h4 style="margin-top:18px">📊 Indicadores sugeridos</h4>
+    <p>${indicadores.join(" · ")}</p>
+    <p style="margin-top:16px"><strong>Datos utilizados:</strong> ${frecuencia} ${unidad}, ${personas} persona(s), ${tiempo} ${unidadTiempo}, ${produccion} unidades y ${moneda} ${costo.toFixed(2)} por operación.</p>
+    <p style="margin-top:12px"><strong>Problema descrito:</strong> ${detalle}</p>
+  `;
+}
+function v(id){return document.getElementById(id).value.trim()}
+function num(id){return Number(document.getElementById(id).value)}
+</script>
+
+<section id="opirProSection" class="opir-pro-section" style="display:none;">
+  <div class="opir-pro-head">
+    <div><span class="opir-kicker">OPIR PRO</span><h2>Centro de mejora del proceso</h2><p>Convierte el diagnóstico en acciones medibles y compara tus resultados.</p></div>
+    <div class="opir-actions">
+      <button type="button" class="opir-btn secondary" onclick="opirPrintReport()">🖨️ Informe</button>
+      <button type="button" class="opir-btn" onclick="opirSaveDiagnosis()">💾 Guardar</button>
+    </div>
+  </div>
+  <div class="opir-tabs">
+    <button class="opir-tab active" onclick="opirTab('resumen',this)">📊 Resumen</button>
+    <button class="opir-tab" onclick="opirTab('impacto',this)">💰 Impacto</button>
+    <button class="opir-tab" onclick="opirTab('comparar',this)">📈 Antes / Después</button>
+    <button class="opir-tab" onclick="opirTab('plan',this)">🎯 Plan de acción</button>
+    <button class="opir-tab" onclick="opirTab('historial',this)">💾 Historial</button>
+  </div>
+
+  <div id="opirTab-resumen" class="opir-panel active">
+    <div id="opirDiagnosisCard" class="opir-diagnosis-card"></div>
+    <div id="opirSolutionsGrid" class="opir-solutions-grid"></div>
+    <div id="opirKpis" class="opir-kpis"></div>
+  </div>
+
+  <div id="opirTab-impacto" class="opir-panel">
+    <div class="opir-grid-2">
+      <div class="opir-card"><h3>💰 Impacto estimado</h3><div id="opirImpactMetrics"></div></div>
+      <div class="opir-card"><h3>📌 Datos utilizados</h3><div id="opirDataUsed"></div></div>
+    </div>
+    <div class="opir-card"><h3>📊 Capacidad y oportunidad</h3><canvas id="opirImpactChart" height="180"></canvas></div>
+  </div>
+
+  <div id="opirTab-comparar" class="opir-panel">
+    <div class="opir-card">
+      <h3>📈 Registra tu mejora</h3>
+      <p>Después de aplicar una solución, introduce los nuevos datos para comparar el proceso.</p>
+      <div class="opir-input-grid">
+        <label>Nuevo tiempo por operación<input id="opirAfterTime" type="number" min="0" step="0.01" placeholder="Ej. 25"></label>
+        <label>Unidad<select id="opirAfterTimeUnit"><option value="min">minutos</option><option value="h">horas</option></select></label>
+        <label>Nuevo costo por operación<input id="opirAfterCost" type="number" min="0" step="0.01" placeholder="Ej. 18"></label>
+        <label>Nueva producción en el mismo período<input id="opirAfterOutput" type="number" min="0" step="0.01" placeholder="Ej. 40"></label>
+      </div>
+      <button class="opir-btn" type="button" onclick="opirCompare()">Comparar resultados</button>
+    </div>
+    <div id="opirComparisonResult"></div>
+  </div>
+
+  <div id="opirTab-plan" class="opir-panel"><div class="opir-card"><h3>🎯 Plan de acción de 4 semanas</h3><div id="opirActionPlan"></div></div></div>
+
+  <div id="opirTab-historial" class="opir-panel">
+    <div class="opir-card"><h3>💾 Diagnósticos guardados en este dispositivo</h3><p class="opir-muted">Los registros se guardan localmente en este navegador.</p><div id="opirHistory"></div></div>
+  </div>
+</section>
+
+<style>
+.opir-pro-section{margin:28px auto;max-width:1100px;padding:0 16px;font-family:inherit}
+.opir-pro-head{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:16px}.opir-kicker{font-size:12px;font-weight:800;letter-spacing:1.5px;opacity:.7}.opir-pro-head h2{margin:5px 0}.opir-pro-head p{margin:0;opacity:.75}.opir-actions{display:flex;gap:8px;flex-wrap:wrap}
+.opir-btn{border:0;border-radius:10px;padding:11px 15px;cursor:pointer;font-weight:700;background:#111827;color:#fff}.opir-btn.secondary{background:#e5e7eb;color:#111827}
+.opir-tabs{display:flex;gap:6px;overflow:auto;border-bottom:1px solid #ddd;margin-bottom:14px}.opir-tab{white-space:nowrap;border:0;background:transparent;padding:11px 13px;cursor:pointer;font-weight:700;border-bottom:3px solid transparent}.opir-tab.active{border-bottom-color:#111827}
+.opir-panel{display:none}.opir-panel.active{display:block}.opir-diagnosis-card,.opir-card{background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:18px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.05)}
+.opir-diagnosis-card h3,.opir-card h3{margin-top:0}.opir-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:14px}.opir-solutions-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.opir-solution{background:#fff;border:1px solid #e5e7eb;border-radius:15px;padding:17px}.opir-solution .badge{display:inline-block;font-size:11px;font-weight:800;padding:5px 8px;border-radius:999px;background:#f3f4f6;margin-bottom:8px}.opir-solution h3{margin:4px 0 8px}.opir-solution p{margin:7px 0;line-height:1.45}
+.opir-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.opir-kpi{padding:14px;border:1px solid #e5e7eb;border-radius:12px;background:#fff}.opir-kpi b{display:block;font-size:20px;margin-top:5px}
+.opir-input-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}.opir-input-grid label{font-size:12px;font-weight:700}.opir-input-grid input,.opir-input-grid select{width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border:1px solid #d1d5db;border-radius:9px}
+.opir-metric{display:flex;justify-content:space-between;border-bottom:1px solid #eee;padding:10px 0;gap:15px}.opir-metric:last-child{border-bottom:0}.opir-muted{opacity:.65;font-size:13px}.opir-plan-step{display:grid;grid-template-columns:70px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid #eee}.opir-plan-step:last-child{border-bottom:0}.opir-history-item{border:1px solid #e5e7eb;border-radius:11px;padding:12px;margin:8px 0;display:flex;justify-content:space-between;gap:10px;align-items:center}.opir-history-item button{border:0;background:#111827;color:#fff;border-radius:8px;padding:7px 10px;cursor:pointer}.opir-note{padding:10px;border-radius:10px;background:#f8fafc;margin-top:10px}
+@media(max-width:760px){.opir-pro-head,.opir-grid-2{display:block}.opir-actions{margin-top:12px}.opir-solutions-grid{grid-template-columns:1fr}.opir-kpis{grid-template-columns:1fr 1fr}.opir-input-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.opir-kpis,.opir-input-grid{grid-template-columns:1fr}}
+@media print{body *{visibility:hidden!important}.opir-pro-section,.opir-pro-section *{visibility:visible!important}.opir-pro-section{position:absolute;left:0;top:0;width:100%;max-width:none}.opir-tabs,.opir-actions{display:none!important}.opir-panel{display:block!important}}
+</style>
+
+<script>
+(function(){
+  const $=id=>document.getElementById(id);
+  let current={};
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  const num=v=>parseFloat(v)||0;
+  const norm=s=>(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+  function collect(){
+    const vals=[...document.querySelectorAll('input,select,textarea')].map(e=>({e,t:((e.name||'')+' '+(e.id||'')+' '+(e.placeholder||'')).toLowerCase()}));
+    const get=keys=>{const x=vals.find(a=>keys.some(k=>a.t.includes(k)));return x?x.e.value:''};
+    return {
+      business:get(['tipo de negocio','tipo de emprendimiento','negocio']),product:get(['producto/servicio','producto o servicio','producto','servicio']),
+      stage:get(['etapa','proceso','área a mejorar']),freq:get(['frecuencia','veces']),freqUnit:get(['unidad de frecuencia']),
+      people:get(['personas','involucradas']),time:get(['tiempo actual','tiempo completo','tiempo del proceso','tiempo por operación']),
+      timeUnit:get(['unidad de tiempo']),output:get(['unidades producidas','producción','unidades']),cost:get(['costo por operación','costo']),
+      currency:get(['moneda']),problem:get(['problema principal','problema']),desc:get(['descripción','describe','detalle']),
+      objective:get(['resultado esperado','objetivo','resultado'])
+    };
+  }
+  function timeMin(d){return num(d.time)*(norm(d.timeUnit).startsWith('h')?60:1)}
+  function cap(d){const t=timeMin(d);return t?60/t:0}
+
+  function solutions(d){
+    const b=norm(d.business), p=norm(d.problem), desc=norm(d.desc), x=p+' '+desc; let a=[];
+    if(/pan|pastel|repost|bakery|panader/.test(b)) a.push(
+      ['Estandarizar recetas y cantidades','Definir pesos, porciones y secuencia de preparación.','Crear fichas de producción y control de merma.','Media','Merma, costo por unidad y tiempo por lote.'],
+      ['Controlar inventario de materias primas','Registrar entradas, salidas y vencimientos.','Aplicar FIFO/FEFO y niveles mínimos.','Media','Merma y faltantes.']);
+    else if(/restaurant|comida|cafeter|bar|restaur/.test(b)) a.push(
+      ['Rediseñar el flujo pedido → cocina → entrega','Separar actividades y prioridades para disminuir esperas.','Medir tiempos por etapa y atacar el cuello de botella.','Media','Espera y pedidos/hora.'],
+      ['Preparación anticipada','Preparar insumos de alta demanda antes de las horas pico.','Usar historial de ventas para definir cantidades.','Baja','Tiempo de preparación y pedidos/hora.']);
+    else if(/taller|mecan|auto|moto|repar/.test(b)) a.push(
+      ['Estandarizar recepción y diagnóstico','Crear una ruta desde recepción hasta entrega.','Usar checklist de recepción, diagnóstico y repuestos.','Media','Tiempo por servicio y retrabajos.'],
+      ['Organizar herramientas y repuestos','Ubicar herramientas según frecuencia de uso.','Aplicar 5S y señalización básica.','Baja','Tiempo de búsqueda y tiempo total.']);
+    else if(/pulperia|tienda|abarro|mini|comerc|ventas|grocery/.test(b)) a.push(
+      ['Clasificar inventario por rotación','Priorizar productos de alta demanda.','Aplicar ABC y niveles mínimos/máximos.','Media','Quiebres de stock y rotación.'],
+      ['Mejorar reposición','Definir puntos de pedido según ventas.','Registrar ventas y tiempo de abastecimiento.','Media','Faltantes y días de inventario.']);
+    else if(/ropa|confecc|costura|boutique|zapato/.test(b)) a.push(
+      ['Planificar producción por demanda','Priorizar tallas, modelos y cantidades según ventas.','Usar historial y pedidos pendientes.','Media','Inventario acumulado y rotación.'],
+      ['Controlar materiales y tiempos','Registrar consumo y tiempo por prenda.','Crear ficha técnica por modelo.','Media','Costo/prenda y merma.']);
+    else if(/salon|barber|belleza|estet|peluquer/.test(b)) a.push(
+      ['Organizar agenda por duración real','Asignar espacios según tiempo de cada servicio.','Registrar duración real y crear bloques.','Baja','Espera y servicios/día.'],
+      ['Estandarizar preparación del puesto','Preparar herramientas e insumos antes de cada cliente.','Usar checklist de apertura y reposición.','Baja','Tiempo entre clientes.']);
+    else a.push(
+      ['Mapear y estandarizar el proceso','Representar cada etapa y detectar esperas.','Crear un diagrama y eliminar pasos sin valor.','Media','Tiempo total y actividades sin valor.'],
+      ['Aplicar 5S y organización visual','Ordenar materiales, herramientas y documentos.','Clasificar, ordenar, limpiar, estandarizar y mantener.','Baja','Tiempo de búsqueda y errores.']);
+
+    if(/lento|tiempo|demora|tarda|rapido/.test(x)) a.push(
+      ['Reducir tiempos de espera','Separar trabajo de espera y atacar el cuello de botella.','Medir cada etapa y concentrar la mejora en la etapa crítica.','Media','Tiempo de ciclo y capacidad/hora.'],
+      ['Balancear actividades','Redistribuir tareas para evitar sobrecargas.','Comparar tiempos por actividad y redistribuir.','Media','Tiempo de ciclo y utilización.']);
+    if(/desperd|merma|material|residuo|perdid/.test(x)) a.push(
+      ['Controlar desperdicios','Registrar dónde, cuándo y por qué se genera cada pérdida.','Usar hoja de control y Pareto de causas.','Baja','% de desperdicio y costo de merma.'],
+      ['Estandarizar cantidades','Definir cantidades objetivo para evitar sobreuso.','Usar fichas de operación y medición por lote.','Media','Consumo por unidad.']);
+    if(/error|defect|fall|calidad/.test(x)) a.push(
+      ['Análisis de causa raíz','Atacar la causa y no solo corregir el defecto.','Aplicar Ishikawa y 5 porqués.','Media','% de defectos y retrabajos.'],
+      ['Puntos de control','Verificar las etapas donde se originan errores.','Usar checklist de calidad.','Baja','Defectos por lote.']);
+    if(/cliente|espera|fila|atencion/.test(x)) a.push(['Gestionar la demanda en horas pico','Concentrar recursos en los momentos de mayor carga.','Medir llegadas por hora y reforzar el cuello de botella.','Media','Espera promedio y clientes/hora.']);
+    if(/inventario|stock|faltante|exceso/.test(x)) a.push(['Definir niveles mínimo y máximo','Evitar quiebres y compras excesivas.','Usar consumo promedio y tiempo de reposición.','Media','Quiebres y días de inventario.']);
+    if(/costo|caro|gasto/.test(x)) a.push(['Analizar costo por operación','Separar materiales, mano de obra y otros costos.','Comparar costo real contra costo objetivo.','Media','Costo por unidad y margen.']);
+    if(/produccion|productividad|baja/.test(x)) a.push(['Medir productividad','Relacionar producción con tiempo y recursos.','Establecer línea base y meta.','Baja','Unidades/hora y productividad.']);
+    const seen=new Set();return a.filter(s=>!seen.has(s[0])&&(seen.add(s[0])||true)).slice(0,6);
+  }
+
+  function render(d){
+    current={...d,generated:new Date().toLocaleString(),solutions:solutions(d)};
+    const t=timeMin(d),c=num(d.cost),cp=cap(d),cur=d.currency||'C$';
+    $('opirDiagnosisCard').innerHTML=`<h3>🔎 Diagnóstico personalizado</h3><p>El proceso de <b>${esc(d.product||'tu producto/servicio')}</b> presenta como situación principal <b>${esc(d.problem||'un problema por analizar')}</b>. OPIR estima <b>${t.toFixed(1)} min</b> por operación y una capacidad teórica de <b>${cp.toFixed(1)} operaciones/hora</b>.</p><div class="opir-note"><b>Objetivo:</b> ${esc(d.objective||'Mejorar el proceso y obtener resultados medibles.')}</div>`;
+    $('opirSolutionsGrid').innerHTML=current.solutions.map((s,i)=>`<article class="opir-solution"><span class="badge">Prioridad ${i+1} · ${s[3]}</span><h3>${i+1}. ${esc(s[0])}</h3><p><b>Qué hacer:</b> ${esc(s[1])}</p><p><b>Cómo aplicarlo:</b> ${esc(s[2])}</p><p><b>KPI:</b> ${esc(s[4])}</p><p><b>Beneficio esperado:</b> ${i===0?'Alto':i<3?'Medio-alto':'Medio'}</p></article>`).join('');
+    $('opirKpis').innerHTML=[['⏱️ Tiempo actual',`${t.toFixed(1)} min`],['⚙️ Capacidad teórica',`${cp.toFixed(1)}/h`],['💰 Costo/operación',`${esc(cur)} ${c.toFixed(2)}`],['👥 Personas',`${num(d.people)||'—'}`]].map(x=>`<div class="opir-kpi"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('');
+    const totalHours=d.output&&t?(t*num(d.output))/60:0,period=d.freq?`${d.freq} ${d.freqUnit||''}`:'el período indicado';
+    $('opirImpactMetrics').innerHTML=[['Producción registrada',`${num(d.output).toFixed(1)} unidades en ${esc(period)}`],['Tiempo total estimado',`${totalHours.toFixed(2)} horas`],['Capacidad teórica',`${cp.toFixed(1)} operaciones/hora`],['Costo del volumen registrado',`${esc(cur)} ${(c*num(d.output)).toFixed(2)}`]].map(x=>`<div class="opir-metric"><span>${x[0]}</span><b>${x[1]}</b></div>`).join('');
+    $('opirDataUsed').innerHTML=Object.entries({'Negocio':d.business||'—','Producto/servicio':d.product||'—','Etapa':d.stage||'—','Problema':d.problem||'—','Frecuencia':period,'Descripción':d.desc||'—'}).map(x=>`<div class="opir-metric"><span>${esc(x[0])}</span><b>${esc(x[1])}</b></div>`).join('');
+    $('opirActionPlan').innerHTML=[['Semana 1','Medir','Registrar tiempo, costo, producción, errores y desperdicios para crear una línea base.'],['Semana 2','Implementar','Aplicar la solución de mayor prioridad y documentar el nuevo método.'],['Semana 3','Comparar','Volver a medir y comparar contra la línea base.'],['Semana 4','Estandarizar','Convertir la mejora en procedimiento, indicador y meta periódica.']].map(x=>`<div class="opir-plan-step"><div><b>${x[0]}</b></div><div><b>${x[1]}</b><p>${x[2]}</p></div></div>`).join('');
+    drawChart();$('opirProSection').style.display='block';$('opirProSection').scrollIntoView({behavior:'smooth',block:'start'});
+  }
+  function drawChart(){
+    const cv=$('opirImpactChart');if(!cv)return;const ctx=cv.getContext('2d'),W=cv.clientWidth||500,H=180,dpr=2;cv.width=W*dpr;cv.height=H*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,W,H);
+    const vals=[timeMin(current),num(current.cost),cap(current)],labels=['Min/op','Costo','Op/h'],max=Math.max(...vals,1);ctx.font='12px Arial';
+    vals.forEach((v,i)=>{const x=55+i*(W-110)/2,bh=v/max*105;ctx.fillStyle='#111827';ctx.fillRect(x-25,135-bh,50,bh);ctx.fillText(labels[i],x-18,160);ctx.fillText(v.toFixed(1),x-18,125-bh)});
+  }
+  window.opirTab=function(name,btn){document.querySelectorAll('.opir-panel').forEach(x=>x.classList.remove('active'));document.querySelectorAll('.opir-tab').forEach(x=>x.classList.remove('active'));$('opirTab-'+name).classList.add('active');btn.classList.add('active');if(name==='historial')renderHistory();};
+  window.opirCompare=function(){
+    const bt=timeMin(current),at=num($('opirAfterTime').value)*(norm($('opirAfterTimeUnit').value).startsWith('h')?60:1),bc=num(current.cost),ac=num($('opirAfterCost').value),bo=num(current.output),ao=num($('opirAfterOutput').value);
+    const rows=[];if(at)rows.push(['Tiempo',bt,at,bt?((bt-at)/bt*100):0]);if(ac)rows.push(['Costo',bc,ac,bc?((bc-ac)/bc*100):0]);if(ao)rows.push(['Producción',bo,ao,bo?((ao-bo)/bo*100):0]);
+    $('opirComparisonResult').innerHTML=`<div class="opir-card"><h3>Resultado de la comparación</h3>${rows.map(r=>`<div class="opir-metric"><span>${r[0]}</span><b>${r[1].toFixed(2)} → ${r[2].toFixed(2)} (${r[3]>=0?r[3].toFixed(1)+'% mejora':Math.abs(r[3]).toFixed(1)+'% cambio'})</b></div>`).join('')}</div>`;
+  };
+  window.opirSaveDiagnosis=function(){if(!current.business&&!current.product){alert('Primero genera un diagnóstico.');return;}const a=JSON.parse(localStorage.getItem('opirDiagnoses')||'[]');a.unshift({id:Date.now(),date:current.generated,business:current.business,product:current.product,problem:current.problem,data:current});localStorage.setItem('opirDiagnoses',JSON.stringify(a.slice(0,20)));alert('Diagnóstico guardado en este dispositivo.');renderHistory();};
+  window.opirLoadDiagnosis=function(id){const a=JSON.parse(localStorage.getItem('opirDiagnoses')||'[]'),x=a.find(v=>v.id==id);if(x)render(x.data);};
+  window.opirDeleteDiagnosis=function(id){const a=JSON.parse(localStorage.getItem('opirDiagnoses')||'[]').filter(v=>v.id!=id);localStorage.setItem('opirDiagnoses',JSON.stringify(a));renderHistory();};
+  function renderHistory(){const a=JSON.parse(localStorage.getItem('opirDiagnoses')||'[]');$('opirHistory').innerHTML=a.length?a.map(x=>`<div class="opir-history-item"><div><b>${esc(x.business||'Negocio')}</b> · ${esc(x.product||'Proceso')}<br><small>${esc(x.problem||'Sin problema')} · ${esc(x.date)}</small></div><div><button onclick="opirLoadDiagnosis(${x.id})">Abrir</button> <button onclick="opirDeleteDiagnosis(${x.id})">Eliminar</button></div></div>`).join(''):'<p class="opir-muted">Todavía no hay diagnósticos guardados.</p>';};
+  window.opirPrintReport=function(){window.print();};
+  const buttons=[...document.querySelectorAll('button')],trigger=buttons.find(b=>/diagn|analiz|generar|resultado|evaluar/i.test(b.innerText||''));
+  if(trigger)trigger.addEventListener('click',()=>setTimeout(()=>{const d=collect();if(d.business||d.product||d.problem||d.desc)render(d)},150));
+  else{const form=document.querySelector('form');if(form){const b=document.createElement('button');b.type='button';b.className='opir-btn';b.textContent='🚀 Generar diagnóstico OPIR PRO';b.onclick=()=>render(collect());form.appendChild(b)}}
+})();
+</script>
+
+</body>
+</html>
